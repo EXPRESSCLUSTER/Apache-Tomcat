@@ -182,8 +182,8 @@ lrwxrwxrwx 1 root root 30 Aug 15 13:40 webapps -> /mnt/md1/apache-tomcat/webapps
      * JVM Monitor tab
        * Java Installation Path: (e.g.) /usr/lib/jvm/jre-11-openjdk
 
-2. Add an EXEC resource (exec1).
-   * start.sh
+2. Add an EXEC resource.
+
 ```
 #! /bin/sh
 #***************************************
@@ -193,7 +193,7 @@ lrwxrwxrwx 1 root root 30 Aug 15 13:40 webapps -> /mnt/md1/apache-tomcat/webapps
 /opt/apache-tomcat-10.1.12/bin/startup.sh
 exit $?
 ```
-   * stop.sh
+
 ```
 #! /bin/sh
 #***************************************
@@ -205,6 +205,8 @@ exit $?
 ```
 
 3. Add a JVM monitor resource.
+   * Monitor(common) tab
+     * Target Resource: exec
    * Monitor(special) tab
      * Target: Tomcat
      * JVM Type: OpenJDK
@@ -214,8 +216,8 @@ exit $?
      * Recovery Action: Executing failover to the recovery target
      * Recovery Target: exec1
 
-4. Create a new setenv.sh file in /opt/apache-tomcat-10.1.12/bin directory.
-   * The setenv.sh should have the following contents **written in ONE line.**
+5. Create a new setenv.sh file in /opt/apache-tomcat-10.1.12/bin directory.
+   * The setenv.sh should have the following contents **written in one line.**
    * The value of jmxremote.port should be the same value of "Connection Port" in the JVM monitor.
 
 ```
@@ -224,7 +226,7 @@ CATALINA_OPTS="${CATALINA_OPTS} -Dcom.sun.management.jmxremote.port=1099 -Dcom.s
 
 ## Test
 
-1. Active the exec resource and then check whether the cluster is working fine.
+1. Activate the exec resource and then check whether the cluster is working fine.
 
 ```
 # clpstat

@@ -121,6 +121,32 @@ OpenJDK 64-Bit Server VM 18.9 (build 11.0.14.1+1-LTS, mixed mode, sharing)
 
 ### Arranging some directories under the apache-tomcat directory
 
+**(Note) files and directories placed in the apache-tomcat directory**
+
+The extracted apache-tomcat directory contains the following files.
+
+```
+apache-tomcat
+├─ BUILDING.txt
+├─ CONTRIBUTING.md
+├─ LICENSE
+├─ NOTICE
+├─ README.md
+├─ RELEASE-NOTES
+├─ RUNNING.txt
+├─ bin        (A)
+├─ conf       (A)
+├─ lib        (B)
+├─ logs       (C)
+├─ temp       (C)
+├─ webapps    (A)
+└─ work       (C)
+```
+
+* (A) These directories are worth placing on a mirror disk and synchronizing between servers. This is because if tasks such as Tomcat configuration changes and web application deployment are performed on one server, there is no need to work on other servers.
+* (B) It seems that files under this directory are updated less frequently than those under (A). Therefore, placing this directory on a mirror disk may not be very beneficial.
+* (C) These directories should not be placed on a mirror disk, but should be independent for each server. Files created under temp or work directories are temporary files. Having logs independent for each server will likely make troubleshooting easier in the case of a failure.
+
 **On the primary server**
 
 1. Create a new directory on the mirror disk.  
